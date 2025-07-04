@@ -1,94 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Coming Soon - Under Development</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            background: #f3f4f6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .banner {
-            background: #0078D4;
-            color: #fff;
-            padding: 2rem 4rem;
-            margin-top: 3rem;
-            border-radius: 10px;
-            font-size: 2rem;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-            text-align: center;
-        }
-        .weather-section {
-            margin-top: 2rem;
-            background: #fff;
-            border-radius: 10px;
-            padding: 1.5rem 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            width: 90vw;
-            max-width: 600px;
-        }
-        .weather-section h2 {
-            margin-top: 0;
-            font-size: 1.4rem;
-            color: #0078D4;
-        }
-        .forecast-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0 0 0;
-        }
-        .forecast-item {
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            padding: 0.5rem 0;
-            font-size: 1rem;
-        }
-        .forecast-item:last-child {
-            border-bottom: none;
-        }
-        .forecast-date {
-            flex: 1;
-            font-weight: 500;
-        }
-        .forecast-icon {
-            width: 36px;
-            height: 36px;
-            margin: 0 1rem;
-        }
-        .forecast-temp {
-            flex: 1.2;
-            font-weight: 400;
-        }
-        @media (max-width: 600px) {
-            .banner {
-                font-size: 1.2rem;
-                padding: 1rem;
-            }
-            .weather-section {
-                padding: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dhaka University Friends Forum (DUFFbd.org) - Batch 1996-97. Social media website coming soon with weather info and updates.">
+  <title>DUFFbd.org - Coming Soon</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="banner">
-        Coming soon, Under development
-    </div>
+  <header>
+    <nav aria-label="Main navigation">
+      <ul style="list-style:none;display:flex;gap:1rem;">
+        <li><a href="#" aria-current="page">Home</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <img src="logo.png" alt="Dhaka University Friends Forum (DUFFbd.org) Logo" width="120" height="120" style="margin:auto;display:block;">
+    <h1>Dhaka University Friends Forum</h1>
+    <h2>Batch 1996-97</h2>
+  </header>
 
-    <div class="weather-section">
-        <h2>Dhaka, Bangladesh - 7 Day Weather Forecast</h2>
-        <ul class="forecast-list" id="forecast-list">
-            <li>Loading weather...</li>
-        </ul>
-    </div>
+  <main>
+    <section>
+      <h3>Coming Soon</h3>
+      <p>This page is under development. Please check back soon for updates!</p>
+    </section>
+
+    <section aria-labelledby="weather-title">
+      <h3 id="weather-title">Dhaka Weather Forecast (Next 7 Days)</h3>
+      <div id="weather-forecast" aria-live="polite">
+        <noscript>
+          Please enable JavaScript to view the weather forecast.
+        </noscript>
+        <span>Loading weather...</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <hr>
+    <p>&copy; 2025 Dhaka University Friends Forum. All rights reserved.</p>
+    <p>
+      <a href="mailto:info.duff.bd@gmail.com">Contact Us</a>
+    </p>
+  </footer>
+
+  <script src="weather.js" defer></script>
+</body>
+</html>
 
     <script>
         // Get the 7 day forecast for Dhaka using Open-Meteo (no API key needed)

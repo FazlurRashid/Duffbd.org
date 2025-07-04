@@ -2,26 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dhaka University Friends Forum - Coming Soon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dhaka University Friends Forum (DUFFbd.org) - Batch 1996-97. Social media website coming soon with weather info and updates.">
+  <title>DUFFbd.org - Coming Soon</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div class="container">
-    <img id="logo" src="logo.png" alt="Dhaka University Friends Forum Logo" />
-    <div class="banner">
-      <h1>Dhaka University Friends Forum</h1>
-      <h2> Batch 1996-97</h2>
-      <h2>Coming soon</h2>
-      <p>Under development</p>
-    </div>
-    <div class="weather-box">
-      <h3>Dhaka Weather Forecast (Next 7 Days)</h3>
-      <div id="weather-forecast">
-        <p>Loading weather...</p>
+  <header>
+    <nav aria-label="Main navigation">
+      <ul style="list-style:none;display:flex;gap:1rem;">
+        <li><a href="#" aria-current="page">Home</a></li>
+        <li><a href="#">Contact</a></li>
+        <!-- Social icons/links can be added here -->
+      </ul>
+    </nav>
+    <img src="logo.png" alt="Dhaka University Friends Forum (DUFFbd.org) Logo" width="120" height="120" style="margin:auto;display:block;">
+    <h1>Dhaka University Friends Forum</h1>
+    <h2>Batch 1996-97</h2>
+  </header>
+
+  <main>
+    <section>
+      <h3>Coming Soon</h3>
+      <p>This page is under development. Please check back soon for updates!</p>
+    </section>
+
+    <section aria-labelledby="weather-title">
+      <h3 id="weather-title">Dhaka Weather Forecast (Next 7 Days)</h3>
+      <div id="weather-forecast" aria-live="polite">
+        <noscript>
+          Please enable JavaScript to view the weather forecast.
+        </noscript>
+        <span>Loading weather...</span>
       </div>
-    </div>
-  </div>
-  <script src="weather.js"></script>
+    </section>
+  </main>
+
+  <footer>
+    <hr>
+    <p>&copy; 2025 Dhaka University Friends Forum. All rights reserved.</p>
+    <p>
+      <a href="mailto:info@duffbd.org">Contact Us</a>
+      <!-- Social media icons can be placed here -->
+    </p>
+  </footer>
+
+  <script src="weather.js" defer></script>
 </body>
 </html>

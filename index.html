@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coming Soon - Under Development</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .banner {
+            background: #0078D4;
+            color: #fff;
+            padding: 2rem 4rem;
+            margin-top: 3rem;
+            border-radius: 10px;
+            font-size: 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+        .weather-section {
+            margin-top: 2rem;
+            background: #fff;
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            width: 90vw;
+            max-width: 600px;
+        }
+        .weather-section h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: #0078D4;
+        }
+        .forecast-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0 0;
+        }
+        .forecast-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+        }
+        .forecast-item:last-child {
+            border-bottom: none;
+        }
+        .forecast-date {
+            flex: 1;
+            font-weight: 500;
+        }
+        .forecast-icon {
+            width: 36px;
+            height: 36px;
+            margin: 0 1rem;
+        }
+        .forecast-temp {
+            flex: 1.2;
+            font-weight: 400;
+        }
+        @media (max-width: 600px) {
+            .banner {
+                font-size: 1.2rem;
+                padding: 1rem;
+            }
+            .weather-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        Coming soon, Under development
+    </div>
+
+    <div class="weather-section">
+        <h2>Dhaka, Bangladesh - 7 Day Weather Forecast</h2>
+        <ul class="forecast-list" id="forecast-list">
+            <li>Loading weather...</li>
+        </ul>
+    </div>
+
+    <script>
+        // Get the 7 day forecast for Dhaka using Open-Meteo (no API key needed)
+        async function fetchForecast() {
+            const url = 'https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Asia%2FDhaka';
+            const res = await fetch(url);
+            if (!res.ok) {
+                document.getElementById('forecast-list').innerHTML = '<li>Unable to load weather data.</li>';
+                return;
+            }
+            const data = await res.json();
+            // Prepare weather code to icon+description mapping
+            const weatherMap = {
+                0: {icon: "☀️", desc: "Clear sky"},
+                1: {icon: "🌤️", desc: "Mainly clear"},
+                2: {icon: "⛅", desc: "Partly cloudy"},
+                3: {icon: "☁️", desc: "Overcast"},
+                45: {icon: "🌫️", desc: "Fog"},
+                48: {icon: "🌫️", desc: "Depositing rime fog"},
+                51: {icon: "🌦️", desc: "Drizzle: Light"},
+                53: {icon: "🌦️", desc: "Drizzle: Moderate"},
+                55: {icon: "🌦️", desc: "Drizzle: Dense"},
+                56: {icon: "🌧️", desc: "Freezing Drizzle: Light"},
+                57: {icon: "🌧️", desc: "Freezing Drizzle: Dense"},
+                61: {icon: "🌦️", desc: "Rain: Slight"},
+                63: {icon: "🌧️", desc: "Rain: Moderate"},
+                65: {icon: "🌧️", desc: "Rain: Heavy"},
+                66: {icon: "🌧️", desc: "Freezing Rain: Light"},
+                67: {icon: "🌧️", desc: "Freezing Rain: Heavy"},
+                71: {icon: "🌨️", desc: "Snow fall: Slight"},
+                73: {icon: "🌨️", desc: "Snow fall: Moderate"},
+                75: {icon: "🌨️", desc: "Snow fall: Heavy"},
+                77: {icon: "❄️", desc: "Snow grains"},
+                80: {icon: "🌦️", desc: "Rain showers: Slight"},
+                81: {icon: "🌧️", desc: "Rain showers: Moderate"},
+                82: {icon: "🌧️", desc: "Rain showers: Violent"},
+                85: {icon: "🌨️", desc: "Snow showers slight"},
+                86: {icon: "🌨️", desc: "Snow showers heavy"},
+                95: {icon: "⛈️", desc: "Thunderstorm: Slight/Moderate"},
+                96: {icon: "⛈️", desc: "Thunderstorm: Slight hail"},
+                99: {icon: "⛈️", desc: "Thunderstorm: Heavy hail"}
+            };
+            // Render forecast
+            const days = data.daily.time.length;
+            let html = '';
+            for (let i = 0; i < Math.min(7, days); i++) {
+                const date = new Date(data.daily.time[i]);
+                const options = { weekday: 'short', month: 'short', day: 'numeric' };
+                const tempMax = data.daily.temperature_2m_max[i];
+                const tempMin = data.daily.temperature_2m_min[i];
+                const wcode = data.daily.weathercode[i];
+                const weather = weatherMap[wcode] || {icon: "❓", desc: "Unknown"};
+                html += `<li class="forecast-item">
+                            <span class="forecast-date">${date.toLocaleDateString('en-US', options)}</span>
+                            <span class="forecast-icon" title="${weather.desc}">${weather.icon}</span>
+                            <span class="forecast-temp">${tempMin}&deg;C / <b>${tempMax}&deg;C</b></span>
+                         </li>`;
+            }
+            document.getElementById('forecast-list').innerHTML = html;
+        }
+        fetchForecast();
+    </script>
+</body>
+</html>
